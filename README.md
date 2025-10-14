@@ -82,8 +82,8 @@ npx husky install
 2. Add the following to the .env file:
 
 ```env
-   TEST_USER_EMAIL=your-email-here
-   TEST_USER_PASSWORD=your-password-here
+   TEST_USER_EMAIL=YOUR-EMAIL-HERE
+   TEST_USER_PASSWORD=YOUR-PASSWORD-HERE
 ```
 
 3. Add the .env file to .gitignore if it is not already in there.
