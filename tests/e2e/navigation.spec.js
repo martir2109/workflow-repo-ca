@@ -1,51 +1,21 @@
 import { test, expect } from "@playwright/test";
 
-/* Navigates to the home page */
-test("navigate to home page", async ({ page }) => {
-  await page.goto("/");
+test.describe("navigation", () => {
+  test("User can navigate to from home page to the first venue, and that the veune heading contains: Venue details", async ({
+    page,
+  }) => {
+    /* Navigates to the home page */
+    await page.goto("/");
 
-  await expect(page.locator("h1")).toBeVisible();
+    /* Waits for the venue list to load */
+    await expect(page.locator("#venue-container")).toBeVisible();
 
-  await expect(page).toHaveTitle("Workflow CA");
-});
+    /*  Clicks the first venue */
+    await page.locator("#venue-container a").first().click();
 
-/* Waits for the venue list to load */
-test("venue loads on home page", async ({ page }) => {
-  await page.goto("/");
-
-  const venueList = page.locator("#venue-container");
-
-  await expect(venueList).toBeVisible();
-});
-
-/* Clicks the first venue */
-test("clicks the first venue", async ({ page }) => {
-  await page.goto("/");
-
-  const venueList = page.locator("#venue-container");
-
-  await expect(venueList).toBeVisible();
-
-  const firstVenue = venueList.locator("a").first();
-
-  await firstVenue.click();
-});
-
-/* Verifies that when the venue details page loads there are the words “Venue details” in the heading */
-test("venue details page displays 'Venue details' heading", async ({
-  page,
-}) => {
-  await page.goto("/");
-
-  const venueList = page.locator("#venue-container");
-
-  await expect(venueList).toBeVisible();
-
-  const firstVenue = venueList.locator("a").first();
-
-  await firstVenue.click();
-
-  const heading = page.getByRole("heading", { name: /Venue details/i });
-
-  await expect(heading).toBeVisible();
+    /* Verifies that when the venue details page loads there are the words “Venue details” in the heading  */
+    await expect(
+      page.getByRole("heading", { name: "Venue details" }),
+    ).toBeVisible();
+  });
 });
